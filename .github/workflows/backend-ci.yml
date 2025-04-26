@@ -3,6 +3,9 @@ name: Backend CI
 on:
   push:
     paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/backend-ci.yml'
       - 'backend/**'
 
 jobs:
