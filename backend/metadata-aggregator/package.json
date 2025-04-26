@@ -14,6 +14,7 @@
     "dotenv": "^10.0.0"
   },
   "devDependencies": {
+    "@types/sentiment": "^5.0.2",
     "typescript": "^4.9.5",
     "ts-node": "^10.9.1",
     "@types/node": "^18.11.9",
