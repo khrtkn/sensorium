@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "backend/collector",
+    "backend/transcoder",
+    "backend/slicer",
+    "backend/livekit-token",
+    "backend/metadata-aggregator",
+    "backend/metadata-server",
+    "backend/user-session"
+  ]
+}

@@ -15,14 +15,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install dependencies
-        run: |
-          for d in backend/*; do
-            if [ -f "$d/package.json" ]; then
-              cd $d
-              npm ci
-              cd -
-            fi
-          done
+        run: npm ci
       - name: Lint & Type Check
         run: |
           for d in backend/*; do
