@@ -1,10 +1,11 @@
 import express from 'express';
 import { spawn } from 'child_process';
-// TODO: Integrate c2pa-node for frame-level signing
+import { createC2pa, ManifestBuilder } from 'c2pa-node';
 
 const app = express();
 const PORT = process.env.PORT || 8001;
 const LIVEKIT_RTMP_URL = process.env.LIVEKIT_RTMP_URL || 'rtmp://localhost:1935/app/stream';
+const c2pa = createC2pa();
 
 app.post('/stream/:cameraId', (req, res) => {
   const { cameraId } = req.params;
@@ -29,10 +30,21 @@ app.post('/stream/:cameraId', (req, res) => {
   res.status(200).send('ok');
 });
 
-app.post('/metadata', express.json(), (req, res) => {
-  // Metadata posted from Collector, forward to clients or store
-  console.log('Metadata received:', req.body);
-  res.status(200).end();
+app.post('/metadata', express.json(), async (req, res) => {
+  const metadata = req.body;
+  console.log('Metadata received:', metadata);
+  const manifest = new ManifestBuilder({
+    claim_generator: 'sensorium/transcoder',
+    format: 'application/json',
+    title: `metadata-${Date.now()}.json`,
+    assertions: [
+      { label: 'com.sensorium.metadata', data: metadata }
+    ]
+  });
+  const buffer = Buffer.from(JSON.stringify(metadata));
+  const signedBuffer = await c2pa.sign({ manifest, data: buffer });
+  console.log('Signed metadata length:', signedBuffer.byteLength);
+  res.json({ signedLength: signedBuffer.byteLength });
 });
 
 app.listen(PORT, () => console.log(`Transcoder service listening on port ${PORT}`));
