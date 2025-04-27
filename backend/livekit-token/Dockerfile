@@ -3,8 +3,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN ls -al /app
-RUN [ -f tsconfig.json ] && echo "tsconfig.json exists" || (echo "tsconfig.json MISSING" && exit 1)
-WORKDIR /app
-RUN npm run build
+RUN npx tsc -p /app/tsconfig.json
 CMD ["node", "dist/index.js"]
