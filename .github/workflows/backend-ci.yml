@@ -39,7 +39,7 @@ jobs:
                 npx tsc --project backend/collector/tsconfig.json --pretty false
               continue-on-error: true
             - name: Lint & Type Check
-              run: npx tsc -p tsconfig.json
+              run: npx tsc -p backend/collector/tsconfig.json
             - name: Build packages
               run: |
                 for d in backend/*; do
