@@ -48,9 +48,7 @@ jobs:
               run: |
                 for d in backend/*; do
                   if [ -f "$d/package.json" ]; then
-                    cd $d
-                    npm run build
-                    cd -
+                    (cd $d && npm run build)
                   fi
                 done
             - name: Build Docker images
