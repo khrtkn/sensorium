@@ -1,0 +1,7 @@
+# Ignore node_modules in all subdirectories
+node_modules/
+
+# Ignore other common sensitive files
+.env
+*.env
+.env.*
