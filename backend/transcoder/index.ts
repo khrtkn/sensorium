@@ -40,21 +40,12 @@ app.post('/stream/:cameraId', (req, res) => {
 app.post('/metadata', express.json(), async (req, res) => {
     const metadata = req.body;
     console.log('Metadata received:', metadata);
-    const manifest = new ManifestBuilder({
-        claim_generator: 'sensorium/transcoder',
-        format: 'application/json',
-        title: `metadata-${Date.now()}.json`,
-        assertions: [{ label: 'com.sensorium.metadata', data: metadata }],
-    });
-    const buffer = Buffer.from(JSON.stringify(metadata));
-    const asset = { buffer, mimeType: 'application/json' };
-    const { signedAsset, signedManifest } = await c2pa.sign({ asset, manifest });
-    let signedLength: number | undefined = undefined;
-    if (signedAsset && signedAsset.buffer && Buffer.isBuffer(signedAsset.buffer)) {
-        signedLength = signedAsset.buffer.byteLength;
-    }
-    console.log('Signed metadata length:', signedLength);
-    res.json({ signedLength });
+
+    // 🚫 ここでmanifestは作らない
+    // 🚫 ここでsign()も呼ばない
+
+    // そのまま受信したデータを返すだけ
+    res.json({ message: 'metadata received', metadata });
 });
 
 app.listen(PORT, () => console.log(`Transcoder service listening on port ${PORT}`));

@@ -8,5 +8,12 @@
     "backend/metadata-aggregator",
     "backend/metadata-server",
     "backend/user-session"
-  ]
+  ],
+  "devDependencies": {
+    "@types/form-data": "^2.2.1",
+    "undici-types": "^7.8.0"
+  },
+  "dependencies": {
+    "sharp": "^0.34.1"
+  }
 }
