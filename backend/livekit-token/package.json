@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "prebuild": "cp -f ../../tsconfig.json ./tsconfig.base.json || true",
     "start": "node index.js",
     "build": "tsc -p tsconfig.json"
   },
