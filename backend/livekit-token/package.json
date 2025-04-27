@@ -4,7 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "tsc"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  }
 }
