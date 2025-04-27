@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const app = express();
@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 app.use(express.json());
 
 // GET /api/cameras (DB連携)
-app.get('/api/cameras', async (req, res) => {
+app.get('/api/cameras', async (req: Request, res: Response) => {
   try {
     const cameras = await prisma.camera.findMany();
     res.json(cameras);
@@ -17,7 +17,7 @@ app.get('/api/cameras', async (req, res) => {
 });
 
 // POST /api/cameras (DB連携: カメラ追加)
-app.post('/api/cameras', async (req, res) => {
+app.post('/api/cameras', async (req: Request, res: Response) => {
   try {
     const { name, ip } = req.body;
     if (!name || !ip) {
@@ -34,7 +34,7 @@ app.post('/api/cameras', async (req, res) => {
 });
 
 // POST /api/streams (映像ストリーム受信: Collectorサービス基礎)
-app.post('/api/streams', async (req, res) => {
+app.post('/api/streams', async (req: Request, res: Response) => {
   try {
     const { cameraId, url, meta } = req.body;
     if (!cameraId || !url) {
@@ -60,7 +60,7 @@ app.post('/api/streams', async (req, res) => {
 });
 
 // GET /api/streams?cameraId=xxx (カメラ別ストリーム一覧取得)
-app.get('/api/streams', async (req, res) => {
+app.get('/api/streams', async (req: Request, res: Response) => {
   try {
     const { cameraId } = req.query;
     const where = cameraId ? { cameraId: String(cameraId) } : {};
@@ -73,7 +73,7 @@ app.get('/api/streams', async (req, res) => {
 });
 
 // POST /api/sessions (DB連携)
-app.post('/api/sessions', async (req, res) => {
+app.post('/api/sessions', async (req: Request, res: Response) => {
   try {
     const userName = req.body.user || 'guest';
     // ユーザーをfind or create
@@ -94,7 +94,7 @@ app.post('/api/sessions', async (req, res) => {
 });
 
 // GET /api/token?cameraId=xxx
-app.get('/api/token', (req, res) => {
+app.get('/api/token', (req: Request, res: Response) => {
   const { cameraId } = req.query;
   res.json({ token: `dummy-token-for-${cameraId}` });
 });

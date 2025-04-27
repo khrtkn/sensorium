@@ -13,6 +13,7 @@
     "prisma": "^6.6.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.1",
     "@types/form-data": "^2.2.1",
     "typescript": "^5.8.3",
     "undici-types": "^7.8.0"
