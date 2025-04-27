@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p /app/tsconfig.json"
   },
   "dependencies": {
     "dotenv": "^16.5.0"
