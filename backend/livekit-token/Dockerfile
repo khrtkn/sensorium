@@ -3,5 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN ls -al /app
 RUN npm run build
 CMD ["node", "dist/index.js"]
